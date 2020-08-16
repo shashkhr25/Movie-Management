@@ -1,0 +1,81 @@
+<div class="jumbotron">
+  <div class="row justify-content-center">
+    <form name="show" #Show="ngForm" (ngSubmit)="searchShow(Show)" >
+      <table>
+        <tr>
+          <td>Screen name</td>
+          <td>
+            <input name="screenname" type="text" [(ngModel)]="screenname" #Name="ngModel" class="form-control"  placeholder="Enter screen name" autofocus minlength="2" maxlength="20">
+          </td> 
+        </tr> 
+        <tr>
+          <td>Enter date</td>
+          <td>
+            <input name="moviedate" type="date" [(ngModel)]="moviedate" #MovieDate="ngModel" class="form-control" autofocus>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td style="text-align: center;" >
+            <button class="btn btn-success"  [disabled]="!Show.valid" type="submit">Submit</button>
+          </td>
+        </tr>
+      </table>
+
+       
+      <div *ngIf="Name.invalid && (Name.dirty || Name.touched)">
+        <div *ngIf="Name.errors.required" style="color: red;">Please Enter Screen Name</div>
+        <div *ngIf="Name.errors.minlength" style="color: red;">Screen name should be more than 2 characters</div>
+        <div *ngIf="Name.errors.maxlength" style="color: red;">Screen name should not be more than 20 characters</div>
+      </div>      
+    </form>
+  </div>
+</div>
+
+
+<div *ngIf="toggleShowList">
+  <!--table class="table table-dark">
+    <tr>
+      <th>Poster</th>
+      <th><label>Show ID</label> </th>
+      <th><label>Show Name</label> </th>
+      <th><label>Show Date</label></th>
+      <th><label>Seats</label> </th>
+      <th><label>Movie name</label> </th>
+    </tr>
+
+    <tr class="showsTable" *ngFor= "let i of show;">
+      <th><img src="assets/screens/{{i.screenImg}}.jpg" height="75" width="75"/></th>
+      <th>{{i.showId}}</th>
+      <th>{{i.showName}}</th>
+      <th>{{i.showDate | date}}</th>
+      <th>{{i.seats}}</th>
+      <th>{{i.movie.movieName}}</th>
+      <th><button class="btn btn-primary" routerLink="/book/{{i.showId}}">Book</button></th>
+    </tr>
+  </table-->
+
+  <div class="row justify-content-center" style="margin-left:100px; margin-right: 0;">
+    <div class="card-columns" >
+      <div class="card text-white bg-info mb-3" style="width: 300px" *ngFor= "let i of show;">
+        <img class="card-img-top" src="assets/screens/{{i.screenImg}}.jpg" height="300" width="200">
+        <div class="card-body">
+            <h4 class="card-title">{{i.movie.movieName | titlecase }}</h4>
+            <p class="card-text">
+              Show id: {{i.showId}} <br> Show name: {{i.showName}} <br> Show Date: {{i.showDate | date}} <br> seats: {{i.seats}}
+            </p>
+            <div class="card-footer"> 
+              <th><button class="btn btn-secondary" routerLink="/book/{{i.showId}}">Book</button></th>
+            </div>
+        </div>
+    </div>
+    </div>
+  </div>
+  
+</div>
+
+
+
+<div *ngIf="showError" class="text-center">
+  <h2>{{errorMsg}}</h2>
+</div>

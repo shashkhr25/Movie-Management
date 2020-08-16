@@ -1,0 +1,56 @@
+<div style="text-align: center;" class="p-3 mb-4 bg-dark text-white"><h1>Welcome To Booked Ticket Details!!</h1></div>
+<div class="bookingDetails">
+  <div style="text-align: center;"> 
+    <h3>Please Enter the Contact Number to Search for Booking Details</h3>
+  </div>
+
+  <div style="background-color: rgb(35, 64, 92)" class="row justify-content-center jumbotron">   
+      <form name="ticketDetails" #Details="ngForm" (ngSubmit)="searchDetails(Details)">
+        <div>
+          <input name="contact" type="text" style="border-color:black" [(ngModel)]="contact" #Contact="ngModel" class="form-control" placeholder="Enter your reg. contact" required>
+        </div>
+        <div class="alert alert-danger" *ngIf="Contact.invalid && (Contact.dirty || Contact.touched)">
+           <p style="color: red;">Please Enter The Contact Number to Search for Booking History</p>
+        </div>
+        <div class="text-center">
+          <br>
+          <input type="submit" value="View Bookings" [disabled]="!frm.valid" class="btn btn-info"/>
+        </div>
+      </form>  
+  </div>
+</div>
+  <br>
+
+<div *ngIf="showError" class="text-center">
+    <p style="color: red;">{{errorMsg}}</p>
+</div>
+ 
+ <div *ngIf="showBookingDetails">
+  <table class="table table-dark table-striped">
+    <tr>
+      <th><label>Booking ID</label> </th>
+      <th><label>Booking Date</label> </th>
+      <th><label>Show Date</label></th>
+      <th><label>Total Tickets</label> </th>
+      <th><label>Total Cost</label> </th>
+      <th><label>User Name</label> </th>
+      <th><label>Movie Name</label> </th>
+      <th><label>Contact</label></th>
+      <th><label>Cancel Your Ticket</label></th>
+    </tr>
+
+    <tr class="bookingDetailsTable" *ngFor= "let i of bookingList">
+      <th>{{i.bookingId}}</th>
+      <th>{{i.bookingDate | date}}</th>
+      <th>{{i.show.showDate | date}}</th>
+      <th>{{i.noOfTkts}}</th>
+      <th>{{i.totalCost}}</th>
+      <th>{{i.userName}}</th>
+      <th>{{i.show.movie.movieName}}</th>
+      <th>{{i.contact}}</th>
+      <th >
+        <button class="btn-danger" style="border-radius: 50px" routerLink="/cancelBooking/{{i.bookingId}}">Cancel Booking</button>
+      </th>
+    </tr>
+  </table>
+</div>

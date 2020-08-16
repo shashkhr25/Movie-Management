@@ -1,0 +1,59 @@
+ <div class="row justify-content-center jumbotron">
+   <form name="BookingForm" #Form="ngForm" (ngSubmit)=bookMovie()>
+    <div style="text-align: center;"> 
+      <h3>Please Enter your information</h3>
+    </div>  
+    <table>
+      <tr>
+        <td>User name</td>
+        <td>
+          <input name="bookForm.userName" type="text" [(ngModel)]="bookForm.userName" #UserName="ngModel" class="form-control" autofocus required minlength="3" maxlength="10">
+        </td>
+      </tr>
+
+      <tr>
+        <td>Contact number</td>
+        <td>
+          <input name="bookForm.contact" type="text" [(ngModel)]="bookForm.contact" #Contact="ngModel" class="form-control" autofocus maxlength="10" minlength="9" required>   
+        </td>
+      </tr>
+
+      <tr>
+        <td>Number of tickets</td>
+        <td>
+          <input name="bookForm.tkts" type="number" [(ngModel)]="bookForm.tkts" class="form-control" #Tickets="ngModel" autofocus required>
+        </td>
+      </tr>
+    </table>
+    <div>
+      <div *ngIf="Tickets.invalid && (Tickets.dirty || Tickets.touched)">
+        <div *ngIf="Tickets.errors.required" style="color: red;">Please Enter number of tickets</div>
+      </div>
+  
+      <div *ngIf="Contact.invalid && (Contact.dirty || Contact.touched)">
+        <div *ngIf="Contact.errors.required" style="color: red;">Please Enter contact number</div>
+        <div *ngIf="Contact.errors.minlength" style="color: red;">Contact number should be 10 digits</div>
+        <div *ngIf="Contact.errors.maxlength" style="color: red;">Contact number should be 10 digits</div>
+      </div>
+  
+      <div *ngIf="UserName.invalid && (UserName.dirty || UserName.touched)">
+        <div *ngIf="UserName.errors.required" style="color: red;">Please Enter username</div>
+        <div *ngIf="UserName.errors.minlength" style="color: red;">User name should be mimumum 3 characters</div>
+        <div *ngIf="UserName.errors.maxlength" style="color: red;">USer name should be maximum 10 characters</div>
+      </div>
+  
+     </div>
+
+     <button class="btn btn-info" [disabled]="!Form.valid" type="submit">Submit</button>
+
+   </form>
+ </div>
+
+ {{bookForm.userName}}
+ <div *ngIf="showMessage" class="text-center">
+  <h2>your booking Id is {{msg.message}}</h2>
+ </div>
+
+ <div *ngIf="showError" class="text-center">
+  <h2>{{errorMsg}}</h2>
+ </div>

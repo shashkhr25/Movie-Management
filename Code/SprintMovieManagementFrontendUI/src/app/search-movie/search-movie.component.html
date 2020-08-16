@@ -1,0 +1,59 @@
+
+<div class="searchMovie" class="row justify-content-center jumbotron">
+        <div>
+          <form name="movie" #Movie="ngForm" (ngSubmit)="searchMovie(Movie)" >
+            <table>
+              <tr>Search Movie</tr>
+              <tr>
+                <td>
+                  <input name="name" type="text" [(ngModel)]="name" #Name="ngModel" class="form-control" placeholder="search" autofocus required minlength="2" maxlength="20">
+                </td>
+                <br>
+              </tr>
+              <tr>
+                <td style="text-align: center;" >
+                  <button class="btn btn-success"  [disabled]="!Movie.valid" type="submit">Submit</button>
+                </td>
+              </tr>
+      
+              <tr>
+                <td>
+                  <div *ngIf="Name.invalid && (Name.dirty || Name.touched)">
+                    <div *ngIf="Name.errors.required" style="color: red;">Please Enter Name/Genre/Language/Director</div>
+                    <div *ngIf="Name.errors.maxlength" style="color: red;">Please Enter less than 20 characters</div>
+                    <div *ngIf="Name.errors.minlength" style="color: red;">Please Enter more than 2 characters</div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </form>  
+        </div>
+</div>
+
+
+<div *ngIf="showError" class="text-center">
+  <h2>{{errorMsg}}</h2>
+</div>
+         
+<div *ngIf="toggleMovieList">
+  <div class="row justify-content-center" style="margin-left:100px; margin-right: 0;">
+    <div class="card-columns" >
+      <div class="card text-white bg-info mb-3" style="width: 300px" *ngFor= "let i of movieList;">
+        <img class="card-img-top" src="assets/images/{{i.movieId}}.jpg" height="300" width="200">
+        <div class="card-body">
+            <h4 class="card-title">{{i.movieName | titlecase }}</h4>
+            <p class="card-text">
+              Language: {{i.language | titlecase }} <br> Director: {{i.director | titlecase }} <br> Genre: {{i.genre | titlecase }}
+            </p>
+            <div class="card-footer"> 
+              <th><a class="btn btn-success" routerLink="/displayshows/{{i.movieId}}">View Shows</a></th>
+              <th><a class="btn btn-success" routerLink="/displayscreens/{{i.movieId}}">View Screen</a></th>                      
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+
+  

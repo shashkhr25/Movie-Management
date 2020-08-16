@@ -1,0 +1,40 @@
+<br>
+<div *ngIf="showScreens">
+  <table class="table table-dark">
+    <tr>
+      <th><label>Poster</label></th>
+      <th><label>screen Name</label> </th>
+      <th><label>Show Date</label></th>
+      <th><label>Movie Name</label> </th>
+    </tr>
+
+    <tr class="movieTable" *ngFor= "let i of screens;">
+      <th><img src="assets/screens/{{i.screenImg}}.jpg" height="75" width="75"/></th>
+      <th>{{i.screenName | titlecase }}</th>
+      <th>{{i.showDate | date}}</th>
+      <th>{{i.movie.movieName | titlecase }}</th>
+      <th><button class="btn btn-primary" routerLink="/displayshows/{{i.movie.movieId}}">Go to shows</button></th>
+    </tr>
+  </table>
+    <!--div class="row justify-content-center" style="margin-left:100px; margin-right: 0;">
+    <div class="card-columns" >
+      <div class="card text-white bg-info mb-3" style="width: 300px" *ngFor= "let i of shows;">
+        <img class="card-img-top" src="assets/screens/{{i.screenImg}}.jpg" height="300" width="200">
+        <div class="card-body">
+            <h4 class="card-title">{{i.screenName | titlecase }}</h4>
+            <p class="card-text">
+              Show Date: {{i.showDate}} <br> Movie Name: {{i.movie.movieName | titlecase}}
+            </p>
+            <div class="card-footer"> 
+              <th><button class="btn btn-secondary" routerLink="/book/{{i.showId}}">Book</button></th>
+            </div>
+        </div>
+    </div>
+    </div>
+  </div-->
+
+</div>
+
+<div *ngIf="showError" class="text-center">
+  <h2>{{errorMsg}}</h2>
+</div>
